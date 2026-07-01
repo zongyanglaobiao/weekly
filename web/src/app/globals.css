@@ -828,6 +828,11 @@ html[data-theme="dark"] .article__body a:hover {
   box-shadow: var(--small-shadow);
 }
 
+/* 可点击放大的图片提示 */
+.zoomable-image {
+  cursor: zoom-in;
+}
+
 .article__body pre,
 .article__body code {
   border-radius: 16px;
@@ -996,6 +1001,142 @@ html[data-theme="dark"] .article__body a:hover {
 
 .back-to-top:active {
   transform: scale(0.94);
+}
+
+/* ── 图片灯箱（点击放大）── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: lightbox-in 180ms ease;
+  cursor: zoom-out;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 111;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 180ms ease;
+}
+
+.lightbox__close:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.lightbox__image {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+  cursor: default;
+  animation: lightbox-img-in 250ms ease;
+}
+
+/* 缩放工具栏 */
+.lightbox__toolbar {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.lightbox__tool {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 180ms ease, background 180ms ease;
+}
+
+.lightbox__tool.is-visible {
+  opacity: 0.85;
+}
+
+.lightbox__tool:hover:not(:disabled) {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.lightbox__tool:disabled {
+  opacity: 0.18;
+  cursor: default;
+}
+
+@keyframes lightbox-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes lightbox-img-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* 移动端灯箱调整 */
+@media (max-width: 720px) {
+  .lightbox {
+    padding: 12px;
+  }
+
+  .lightbox__close {
+    top: 12px;
+    right: 12px;
+    width: 38px;
+    height: 38px;
+  }
+
+  .lightbox__image {
+    max-width: 96vw;
+    max-height: 85vh;
+    border-radius: 10px;
+  }
+
+  .lightbox__toolbar {
+    bottom: 20px;
+    gap: 4px;
+    padding: 5px;
+  }
+
+  .lightbox__tool {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 /* ── 移动端 sticky 目录导航条 ── */

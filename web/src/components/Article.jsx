@@ -1,3 +1,5 @@
+import {ZoomableImage} from '@/components/ZoomableImage';
+
 const INLINE_RENDERERS = {
     text(node, key) {
         return node.text;
@@ -30,7 +32,7 @@ const INLINE_RENDERERS = {
         );
     },
     image(node, key) {
-        return <img key={key} src={node.href} alt={node.text || ""} title={node.title || undefined} loading="lazy" />;
+        return <ZoomableImage key={key} src={node.href} alt={node.text || ""} title={node.title || undefined} />;
     },
     br(node, key) {
         return <br key={key} />;
