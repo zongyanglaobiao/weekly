@@ -1,4 +1,4 @@
-import {ZoomableImage} from '@/components/ZoomableImage';
+import {ZoomableImage} from "./ZoomableImage";
 
 const INLINE_RENDERERS = {
     text(node, key) {
